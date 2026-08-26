@@ -1,0 +1,183 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
+
+namespace Act2Search
+{
+    public partial class Form1 : Form
+    {
+        Queue<Node> frontier;
+        HashSet<Node> visited;
+        List<Node> origin;
+        Node current;
+        private bool showStartGoal = false;
+        private Node startNode;
+        private Node goalNode;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // set maze size to 20x20
+            MazeSolver.SetSize(20, 20);
+            // default start and goal
+            startNode = new Node(0, 0);
+            goalNode = new Node(MazeSolver.GetRows() - 1, MazeSolver.GetCols() - 1);
+            current = startNode;
+        }
+
+        public void RunDFS(Node start, Node goal)
+        {
+            richTextBox1.Text = "Running DFS";
+            Stack<Node> stack = new Stack<Node>();
+            visited = new HashSet<Node>();
+            origin = new List<Node>();
+
+            stack.Push(start);
+            visited.Add(start);
+            origin.Add(start);
+
+            while (stack.Count > 0)
+            {
+                current = stack.Pop();
+                richTextBox1.Text += "\nExpanding: " + current.ToString();
+
+                if (current.Row == goal.Row && current.Col == goal.Col)
+                {
+                    richTextBox1.Text += "\nGoal Found!";
+                    this.Refresh();
+                    return;
+                }
+
+                foreach (Node next in MazeSolver.GetNeighbors(current))
+                {
+                    if (!visited.Contains(next))
+                    {
+                        visited.Add(next);
+                        stack.Push(next);
+                        origin.Add(current);
+                    }
+                }
+
+                richTextBox2.Text = string.Join("\n", stack.ToArray());
+                richTextBox3.Text = string.Join("\n", visited.ToArray());
+                richTextBox4.Text = string.Join("\n", origin.ToArray());
+
+                this.Refresh();
+                //Thread.Sleep(100);
+            }
+            richTextBox1.Text += "\nGoal not reachable.";
+        }
+        public  void RunBFS(Node start, Node goal)
+        {
+            //Console.WriteLine("\n--- Running BFS ---");
+            richTextBox1.Text = "Running BFS";
+            frontier = new Queue<Node>();
+            visited = new HashSet<Node>();
+            origin = new List<Node>();
+
+            frontier.Enqueue(start);
+            visited.Add(start);
+            origin.Add(start);
+            while (frontier.Count > 0)
+            {
+                current = frontier.Dequeue();
+               
+                //Console.WriteLine($"Expanding: {current}");
+                richTextBox1.Text+= "\nExpanding: " + current.ToString();
+
+                if (current.Row == goal.Row && current.Col == goal.Col)
+                {
+                    //Console.WriteLine("Goal Found!");
+                    richTextBox1.Text+= "\nGoal Found!";
+                                
+                    this.Refresh();
+                    return;
+                }
+
+                foreach (Node next in MazeSolver.GetNeighbors(current))
+                {
+                    if (!visited.Contains(next))
+                    {
+                        visited.Add(next);
+                        frontier.Enqueue(next);
+                        origin.Add(current);
+                    }
+                }
+                
+                richTextBox2.Text = string.Join("\n", frontier.ToArray());
+                richTextBox3.Text = string.Join("\n", visited.ToArray());
+                richTextBox4.Text = string.Join("\n", origin.ToArray());
+
+                // if you want the picture to refresh after running algorithms, call:
+                this.Refresh();
+                //Thread.Sleep(1000);
+            }
+            richTextBox1.Text += "\nGoal not reachable.";
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // legacy run: BFS from start to goal
+            RunBFS(startNode, goalNode);
+            
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            int[,] grid = MazeSolver.GetGrid();
+            int rows = MazeSolver.GetRows();
+            int cols = MazeSolver.GetCols();
+
+            int cellW = Math.Max(1, pictureBox1.ClientSize.Width / cols);
+            int cellH = Math.Max(1, pictureBox1.ClientSize.Height / rows);
+
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    Rectangle rect = new Rectangle(c * cellW, r * cellH, cellW, cellH);
+                    if (grid[r, c] == 1)
+                        e.Graphics.FillRectangle(Brushes.Black, rect);
+                    else
+                        e.Graphics.FillRectangle(Brushes.White, rect);
+
+                    // highlight visited
+                    if (visited != null && visited.Contains(new Node(r, c)))
+                        e.Graphics.FillRectangle(Brushes.LightGreen, rect);
+
+                    e.Graphics.DrawRectangle(Pens.Gray, rect);
+                }
+            }
+
+            // draw current node
+            Rectangle rect1 = new Rectangle(current.Col * cellW, current.Row * cellH, cellW, cellH);
+            e.Graphics.FillRectangle(Brushes.Red, rect1);
+            e.Graphics.DrawString("" + current.Row + "," + current.Col, new Font("Arial", 8), Brushes.Black, rect1);
+
+            // draw start and goal if toggled
+            if (showStartGoal)
+            {
+                Rectangle srect = new Rectangle(startNode.Col * cellW, startNode.Row * cellH, cellW, cellH);
+                Rectangle grect = new Rectangle(goalNode.Col * cellW, goalNode.Row * cellH, cellW, cellH);
+                e.Graphics.FillRectangle(Brushes.Blue, srect);
+                e.Graphics.FillRectangle(Brushes.DarkBlue, grect);
+                e.Graphics.DrawString("S", new Font("Arial", 8), Brushes.White, srect);
+                e.Graphics.DrawString("G", new Font("Arial", 8), Brushes.White, grect);
+            }
+
+        }
+    }
+}

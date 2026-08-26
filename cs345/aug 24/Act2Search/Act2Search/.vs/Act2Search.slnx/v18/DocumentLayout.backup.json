@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|c:\\users\\chrisjordangaliac\\source\\repos\\act2search\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|c:\\users\\chrisjordangaliac\\source\\repos\\act2search\\mazeenvironment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|solutionrelative:mazeenvironment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{48EB01A4-647A-46B5-910E-7FBE4974B558}|Act2Search.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MazeEnvironment.cs",
+              "DocumentMoniker": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\MazeEnvironment.cs",
+              "RelativeDocumentMoniker": "MazeEnvironment.cs",
+              "ToolTip": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\MazeEnvironment.cs",
+              "RelativeToolTip": "MazeEnvironment.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAgwBYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-14T03:46:44.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAuwCgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-14T03:32:41.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\ChrisJordanGAliac\\source\\repos\\Act2Search\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-14T03:06:55.959Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

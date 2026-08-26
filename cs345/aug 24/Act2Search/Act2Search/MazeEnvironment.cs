@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace Act2Search
+{
+    public struct Node
+    {
+        public int Row { get; }
+        public int Col { get; }
+
+        public Node(int row, int col)
+        {
+            Row = row;
+            Col = col;
+        }
+
+        public override string ToString()
+        {
+            return $"({Row}, {Col})";
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is Node n)
+                return n.Row == Row && n.Col == Col;
+            return false;
+        }
+        public bool Equals(Node other) => other.Row == Row && other.Col == Col;
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Row * 397) ^ Col;
+            }
+        }
+    }
+
+    public static class MazeSolver
+    {
+        // 0 = Path, 1 = Wall
+        private static int[,] Grid;
+        private static int Rows = 20;
+        private static int Cols = 20;
+
+        static MazeSolver()
+        {
+            // initialize default grid
+            Grid = new int[Rows, Cols];
+            // set borders to walls (optional) - keep open for more interesting mazes
+            for (int r = 0; r < Rows; r++)
+                for (int c = 0; c < Cols; c++)
+                    Grid[r, c] = 0;
+        }
+
+        public static void SetSize(int rows, int cols)
+        {
+            if (rows <= 0 || cols <= 0) return;
+            Rows = rows;
+            Cols = cols;
+            Grid = new int[Rows, Cols];
+        }
+
+        public static int GetRows() => Rows;
+        public static int GetCols() => Cols;
+
+        // Simulates an Adjacency List by checking Up, Down, Left, Right
+        public static IEnumerable GetNeighbors(Node n)
+        {
+            int[] dRow = { -1, 1, 0, 0 }; // Up, Down
+            int[] dCol = { 0, 0, -1, 1 }; // Left, Right
+
+            for (int i = 0; i < 4; i++)
+            {
+                int newRow = n.Row + dRow[i];
+                int newCol = n.Col + dCol[i];
+
+                // Check grid boundaries and ensure it's not a wall
+                if (newRow >= 0 && newRow < Rows &&
+                    newCol >= 0 && newCol < Cols &&
+                    Grid[newRow, newCol] == 0)
+                {
+                    yield return new Node(newRow, newCol);
+                }
+            }
+        }
+
+        public static int[,] GetGrid()
+        {
+            return Grid;
+        }
+
+        // Randomize walls. wallProbability between 0.0 and 1.0
+        public static void RandomizeWalls(double wallProbability = 0.30)
+        {
+            var rnd = new Random();
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Cols; c++)
+                {
+                    Grid[r, c] = (rnd.NextDouble() < wallProbability) ? 1 : 0;
+                }
+            }
+
+            // Ensure start (0,0) and goal (Rows-1, Cols-1) are free
+            Grid[0, 0] = 0;
+            Grid[Rows - 1, Cols - 1] = 0;
+        }
+    };
+
+       
+
+        
+       
+    
+        internal class MazeEnvironment
+    {
+    }
+}
